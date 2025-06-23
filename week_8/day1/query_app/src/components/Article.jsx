@@ -3,8 +3,12 @@ import Card from 'react-bootstrap/Card';
 
 export default function Article({ article }) {
   return (
-    <Card className='article'>
-      <Card.Img className='article-image' variant='top' src={article.image} />
+    <Card>
+      <Card.Img
+        variant='top'
+        src={article.image}
+        alt={`Image de ${article.title}`}
+      />
       <Card.Body>
         <Card.Title>{article.title}</Card.Title>
         <Card.Text>{article.description}</Card.Text>

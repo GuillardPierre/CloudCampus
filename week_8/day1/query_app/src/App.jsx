@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import './styles/app.scss';
 import Article from './components/Article';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function App() {
   const [articles, setArticles] = useState([]);
@@ -21,11 +24,21 @@ function App() {
   return (
     <>
       <main>
-        <section className='articles-wrapper'>
-          {articles.map((article) => (
-            <Article article={article} key={article.id} />
-          ))}
-        </section>
+        <Container>
+          <Row>
+            {articles.map((article) => (
+              <Col
+                key={article.id}
+                xs={12}
+                sm={6}
+                md={3}
+                className='mb-4 d-flex'
+              >
+                <Article article={article} />
+              </Col>
+            ))}
+          </Row>
+        </Container>
       </main>
     </>
   );

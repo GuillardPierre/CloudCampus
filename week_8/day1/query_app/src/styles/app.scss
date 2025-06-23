@@ -4,29 +4,8 @@
   font-size: 12px;
 }
 
-body  {
-}
-
-main {
-  width: 70%;
-  margin-inline: auto;
-  padding: 12px;
-}
-
-.articles-wrapper {
-  display: flex;
-  flex-direction: row;
-  gap: 5px;
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.article {
-  width: 250px;
-
-  &-image {
-    height: 248px;
-    width: auto;
-    object-fit: contain;
-  }
+.card-img-top {
+  height: 200px;
+  object-fit: contain;
+  padding: 10px;
 }
