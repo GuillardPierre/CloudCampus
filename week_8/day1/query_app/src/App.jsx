@@ -25,15 +25,9 @@ function App() {
     <>
       <main>
         <Container>
-          <Row>
+          <Row className='gy-4'>
             {articles.map((article) => (
-              <Col
-                key={article.id}
-                xs={12}
-                sm={6}
-                md={3}
-                className='mb-4 d-flex'
-              >
+              <Col key={article.id} xs={12} sm={6} md={3}>
                 <Article article={article} />
               </Col>
             ))}

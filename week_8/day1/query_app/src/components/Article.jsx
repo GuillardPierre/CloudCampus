@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 
 export default function Article({ article }) {
   return (
-    <Card>
+    <Card className='h-100'>
       <Card.Img
         variant='top'
         src={article.image}
