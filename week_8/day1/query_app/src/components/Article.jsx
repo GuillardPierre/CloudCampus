@@ -1,6 +1,18 @@
+import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 export default function Article({ article }) {
+  const changeProduct = async (id) => {
+    const product = { title: 'Updated Product', price: 39.99 };
+    const rep = await fetch(`https://fakestoreapi.com/products/${id}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(product),
+    });
+    const data = await rep.json();
+    alert(`Le produit avec l'id ${data.id} a été modifié`);
+  };
+
   return (
     <Card className='h-100'>
       <Card.Img
@@ -12,8 +24,16 @@ export default function Article({ article }) {
         <Card.Title>{article.title}</Card.Title>
         <Card.Text>{article.description}</Card.Text>
         <Card.Text>{article.price} €</Card.Text>
-        {/* <Button variant='primary'>Ajouter à mon panier</Button> */}
       </Card.Body>
+      <Card.Footer>
+        <Button
+          variant='primary'
+          className='mt-auto'
+          onClick={() => changeProduct(article.id)}
+        >
+          Modifier un produit complet
+        </Button>
+      </Card.Footer>
     </Card>
   );
 }
