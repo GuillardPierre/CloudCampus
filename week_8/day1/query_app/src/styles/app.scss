@@ -1,0 +1,28 @@
+@import 'bootstrap/scss/bootstrap';
+
+* {
+  font-size: 12px;
+}
+
+main {
+  width: 70%;
+  margin-inline: auto;
+}
+
+.articles-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.article {
+  width: 250px;
+
+  &-image {
+    height: 248px;
+    width: auto;
+    object-fit: contain;
+  }
+}
