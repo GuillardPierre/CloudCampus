@@ -14,7 +14,7 @@ export default function Article({ article }) {
   };
 
   const changeProductPrice = async (id) => {
-    const product = { title: 'Updated Product', price: 39.99 };
+    const product = { price: 39.99 };
     const rep = await fetch(`https://fakestoreapi.com/products/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
