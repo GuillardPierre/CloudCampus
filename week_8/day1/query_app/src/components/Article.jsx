@@ -2,7 +2,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 export default function Article({ article }) {
-  const changeProduct = async (id) => {
+  const changeArticle = async (id) => {
     const product = { title: 'Updated Product', price: 39.99 };
     const rep = await fetch(`https://fakestoreapi.com/products/${id}`, {
       method: 'PUT',
@@ -13,7 +13,7 @@ export default function Article({ article }) {
     alert(`Le produit avec l'id ${data.id} a été modifié`);
   };
 
-  const changeProductPrice = async (id) => {
+  const changeArticlePrice = async (id) => {
     const product = { price: 39.99 };
     const rep = await fetch(`https://fakestoreapi.com/products/${id}`, {
       method: 'PATCH',
@@ -22,6 +22,14 @@ export default function Article({ article }) {
     });
     const data = await rep.json();
     alert(`Le prix du produit avec l'id ${data.id} a été modifié`);
+  };
+
+  const deleteArticle = async (id) => {
+    const rep = await fetch(`https://fakestoreapi.com/products/${id}`, {
+      method: 'DELETE',
+    });
+    const data = await rep.json();
+    alert(`Le produit avec l'id ${data.id} a été supprimé`);
   };
 
   return (
@@ -37,19 +45,17 @@ export default function Article({ article }) {
         <Card.Text>{article.price} €</Card.Text>
       </Card.Body>
       <Card.Footer className='gap-1'>
-        <Button
-          variant='primary'
-          className='mt-auto'
-          onClick={() => changeProduct(article.id)}
-        >
+        <Button variant='primary' onClick={() => changeArticle(article.id)}>
           Modifier un produit complet
         </Button>
         <Button
           variant='primary'
-          className='mt-auto'
-          onClick={() => changeProductPrice(article.id)}
+          onClick={() => changeArticlePrice(article.id)}
         >
           Modifer le prix
+        </Button>
+        <Button variant='danger' onClick={() => deleteArticle(article.id)}>
+          Supprimer l'article
         </Button>
       </Card.Footer>
     </Card>
