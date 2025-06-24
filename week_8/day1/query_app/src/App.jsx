@@ -9,28 +9,56 @@ import Button from 'react-bootstrap/Button';
 
 function App() {
   const [articles, setArticles] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const getData = async () => {
-      const rep = await fetch('https://fakestoreapi.com/products');
-      console.log(rep);
+      try {
+        const rep = await fetch('https://fakestoreapi.com/products');
+        console.log(rep);
 
-      const data = await rep.json();
-      setArticles(data);
+        if (!rep.ok) {
+          console.log(rep);
+          throw new Error(
+            `Erreur HTTP: ${rep.statusText ? rep.statusText + ' - ' : ''}${
+              rep.status
+            }`
+          );
+        }
+        const data = await rep.json();
+        setArticles(data);
+      } catch (error) {
+        console.error(error.message);
+        setError(
+          'Une erreur est survenue lors de la récupération des articles'
+        );
+      } finally {
+        setLoading(false);
+      }
     };
-
     getData();
   }, []);
 
+  if (error) return <p>Erreur : {error}</p>;
+
+  if (loading) return <p>Chargement...</p>;
+
   const postProduct = async () => {
     const product = { title: 'New Product', price: 29.99 };
-    const rep = await fetch('https://fakestoreapi.com/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(product),
-    });
-    const data = await rep.json();
-    alert(`Le produit avec l'id ${data.id} a été créé`);
+
+    try {
+      const rep = await fetch('https://fakestoreapi.com/productss', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(product),
+      });
+      const data = await rep.json();
+      alert(`Le produit avec l'id ${data.id} a été créé`);
+    } catch (error) {
+      console.error(error.message);
+      alert("Une erreur est survenue lors de l'ajout d'un article");
+    }
   };
 
   return (
