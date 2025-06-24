@@ -10,6 +10,7 @@ function App() {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm({
     mode: 'onBlur',
     defaultValues: {
@@ -22,6 +23,7 @@ function App() {
 
   const onSubmit = (data) => {
     console.log(data);
+    reset();
   };
 
   return (
