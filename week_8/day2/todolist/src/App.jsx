@@ -6,9 +6,9 @@ import './styles/app.scss';
 
 function App() {
   const [formData, setFormData] = useState({
-    nom: '',
+    name: '',
     date: '',
-    priorite: 'Low',
+    priority: 'Low',
     isCompleted: false,
   });
 
@@ -28,12 +28,12 @@ function App() {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <Form.Group className='mb-3'>
+        <Form.Group className='mb-3' controlId='name'>
           <Form.Label>Nom</Form.Label>
           <Form.Control
             type='text'
-            name='nom'
-            value={formData.nom}
+            name='name'
+            value={formData.name}
             onChange={handleChange}
             required
           />
@@ -50,11 +50,11 @@ function App() {
           />
         </Form.Group>
 
-        <Form.Group className='mb-3'>
+        <Form.Group className='mb-3' controlId='priority'>
           <Form.Label>Priorité</Form.Label>
           <Form.Select
-            name='priorite'
-            value={formData.priorite}
+            name='priority'
+            value={formData.priority}
             onChange={handleChange}
           >
             <option value='Low'>Basse</option>
@@ -63,7 +63,7 @@ function App() {
           </Form.Select>
         </Form.Group>
 
-        <Form.Group className='mb-3'>
+        <Form.Group className='mb-3' controlId='completed'>
           <Form.Check
             type='checkbox'
             name='isCompleted'
