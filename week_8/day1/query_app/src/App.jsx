@@ -15,17 +15,16 @@ function App() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const rep = await fetch('https://fakestoreapi.com/products');
+        const rep = await fetch('https://fakestoreapi.com/productss');
         console.log(rep);
-
         if (!rep.ok) {
-          console.log(rep);
           throw new Error(
             `Erreur HTTP: ${rep.statusText ? rep.statusText + ' - ' : ''}${
               rep.status
             }`
           );
         }
+
         const data = await rep.json();
         setArticles(data);
       } catch (error) {
@@ -40,10 +39,6 @@ function App() {
     getData();
   }, []);
 
-  if (error) return <p>Erreur : {error}</p>;
-
-  if (loading) return <p>Chargement...</p>;
-
   const postProduct = async () => {
     const product = { title: 'New Product', price: 29.99 };
 
@@ -53,6 +48,14 @@ function App() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(product),
       });
+      if (!rep.ok) {
+        throw new Error(
+          `Erreur HTTP: ${rep.statusText ? rep.statusText + ' - ' : ''}${
+            rep.status
+          }`
+        );
+      }
+
       const data = await rep.json();
       alert(`Le produit avec l'id ${data.id} a été créé`);
     } catch (error) {
@@ -60,6 +63,9 @@ function App() {
       alert("Une erreur est survenue lors de l'ajout d'un article");
     }
   };
+  if (error) return <p>Erreur : {error}</p>;
+
+  if (loading) return <p>Chargement...</p>;
 
   return (
     <>
