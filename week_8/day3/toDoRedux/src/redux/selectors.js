@@ -1,4 +1,6 @@
-export const selectTodos = (state) => state.todos;
+import { createSelector } from 'reselect';
 
-export const selectCompletedTodos = (state) =>
-  state.todos.filter((todo) => todo.completed);
+export const selectTodos = (state) => state.todos;
+export const selectCompletedTodos = createSelector([selectTodos], (todos) =>
+  todos.filter((todo) => todo.completed)
+);
