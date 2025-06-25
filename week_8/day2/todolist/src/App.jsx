@@ -24,9 +24,8 @@ const schema = yup.object().shape({
         if (day > 31) return false;
         if (month > 12) return false;
         if (year > 9999) return false;
-        const inputDate = new Date(year, month - 1, day);
+        const inputDate = new Date(year, month, day);
         const today = new Date();
-        today.setHours(0, 0, 0, 0);
         if (inputDate >= today) return false;
         return true;
       }
