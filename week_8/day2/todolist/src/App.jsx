@@ -47,6 +47,10 @@ function App() {
     reset,
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      priority: 'Low',
+      isCompleted: false,
+    },
   });
 
   const onSubmit = (data) => {
@@ -104,7 +108,6 @@ function App() {
             type='checkbox'
             name='isCompleted'
             label='Completé'
-            defaultChecked
             {...register('isCompleted')}
           />
         </Form.Group>
