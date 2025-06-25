@@ -8,7 +8,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 
 const schema = yup.object().shape({
-  name: yup.string().required('Le nom est requis'),
+  name: yup
+    .string()
+    .min(8, 'Le nom doit contenir plus de 8 caractères')
+    .max(15, 'Le nom doit faire moins de 15 caractères')
+    .required('Le nom est requis'),
   date: yup
     .string()
     .matches(
@@ -21,13 +25,11 @@ const schema = yup.object().shape({
       function (value) {
         if (!value) return false;
         const [day, month, year] = value.split('/').map(Number);
-        if (day > 31) return false;
-        if (month > 12) return false;
-        if (year > 9999) return false;
-        const inputDate = new Date(year, month, day);
+        const inputDate = new Date(year, month - 1, day);
         const today = new Date();
-        if (inputDate >= today) return false;
-        return true;
+        inputDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+        return inputDate >= today;
       }
     ),
   priority: yup
@@ -102,6 +104,7 @@ function App() {
             type='checkbox'
             name='isCompleted'
             label='Completé'
+            defaultChecked
             {...register('isCompleted')}
           />
         </Form.Group>
