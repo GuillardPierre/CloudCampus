@@ -1,4 +1,5 @@
 import Card from 'react-bootstrap/Card';
+import '../styles/movieCard.scss';
 
 export default function MovieCard({ movie }) {
   return (

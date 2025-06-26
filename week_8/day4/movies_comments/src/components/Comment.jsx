@@ -8,7 +8,7 @@ export default function Comment({ comment }) {
   const handleDelete = (id) => dispatch(deleteComment(id));
 
   return (
-    <Card className='mb-3'>
+    <Card>
       <Card.Body>
         <Card.Title>Note : {comment.note}/5</Card.Title>
         <Card.Text>{comment.comment}</Card.Text>

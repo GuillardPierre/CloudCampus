@@ -10,26 +10,18 @@ import { addComment } from '../redux/commentSlice';
 
 export default function CommentForm() {
   const dispatch = useDispatch();
+
   const schema = yup.object().shape({
-    comment: yup.string().required('Le commentaire est obligatoire'),
-    note: yup
+    comment: yup
       .string()
-      .required('Veuillez saisir une note')
-      .test(
-        'is-number',
-        'La note doit être un nombre',
-        (value) => !isNaN(value)
-      )
-      .test(
-        'min',
-        'La note doit être supérieure ou égale à 0',
-        (value) => Number(value) >= 0
-      )
-      .test(
-        'max',
-        'La note doit être inférieure ou égale à 5',
-        (value) => Number(value) <= 5
-      ),
+      .required('Le commentaire est obligatoire')
+      .max(500, 'Le commentaire ne doit pas dépasser 500 caractères'),
+    note: yup
+      .number()
+      .typeError('Veuillez sélectionner une note')
+      .min(0, 'La note doit être au moins 0')
+      .max(5, 'La note doit être au plus 5')
+      .required('Veuillez sélectionner une note'),
     cgu: yup
       .boolean()
       .oneOf([true], 'Vous devez accepter les conditions générales'),
@@ -42,14 +34,15 @@ export default function CommentForm() {
     reset,
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      comment: '',
+      note: '',
+      cgu: false,
+    },
   });
 
   const onSubmit = (data) => {
-    const cleanData = {
-      ...data,
-      note: Number(data.note),
-    };
-    dispatch(addComment(cleanData));
+    dispatch(addComment(data));
     reset();
   };
 
@@ -64,23 +57,27 @@ export default function CommentForm() {
           rows={3}
           {...register('comment')}
           isInvalid={!!errors.comment}
+          feedback={errors.comment?.message}
+          feedbackType='invalid'
         />
-        <Form.Control.Feedback type='invalid'>
-          {errors.comment?.message}
-        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className='mb-3' controlId='note'>
         <Form.Label>Note</Form.Label>
-        <Form.Control
-          type='text'
-          placeholder='Sélectionner une note'
+        <Form.Select
           {...register('note')}
           isInvalid={!!errors.note}
-        />
-        <Form.Control.Feedback type='invalid'>
-          {errors.note?.message}
-        </Form.Control.Feedback>
+          feedback={errors.note?.message}
+          feedbackType='invalid'
+        >
+          <option value=''>Sélectionnez une note</option>
+          <option value='0'>0</option>
+          <option value='1'>1</option>
+          <option value='2'>2</option>
+          <option value='3'>3</option>
+          <option value='4'>4</option>
+          <option value='5'>5</option>
+        </Form.Select>
       </Form.Group>
 
       <Form.Group className='mb-3' controlId='cgu'>
@@ -89,10 +86,9 @@ export default function CommentForm() {
           label="J'accepte les conditions générales"
           {...register('cgu')}
           isInvalid={!!errors.cgu}
+          feedback={errors.cgu?.message}
+          feedbackType='invalid'
         />
-        {errors.cgu && (
-          <div className='invalid-feedback d-block'>{errors.cgu.message}</div>
-        )}
       </Form.Group>
 
       <Button variant='primary' type='submit'>

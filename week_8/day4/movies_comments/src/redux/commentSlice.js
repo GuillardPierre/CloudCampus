@@ -11,14 +11,10 @@ const commentSlice = createSlice({
         id: Date.now(),
         note: action.payload.note,
         comment: action.payload.comment,
-        isDeleted: false,
       });
     },
     deleteComment: (state, action) => {
-      const comment = state.find((comment) => action.payload === comment.id);
-      if (comment) {
-        comment.isDeleted = true;
-      }
+      return state.filter((comment) => comment.id !== action.payload);
     },
   },
 });

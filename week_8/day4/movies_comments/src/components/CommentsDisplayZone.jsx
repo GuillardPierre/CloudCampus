@@ -9,7 +9,7 @@ export default function CommentDisplayZone() {
   return (
     <>
       {comments.length === 0 ? (
-        <Alert variant='primary'>Aucun commentaire pour le moment</Alert>
+        <Alert variant='info'>Aucun commentaire pour le moment</Alert>
       ) : (
         comments.map((comment) => (
           <Comment key={comment.id} comment={comment} />
