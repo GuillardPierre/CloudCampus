@@ -1,8 +1,6 @@
 import Card from 'react-bootstrap/Card';
 
 export default function MovieCard({ movie }) {
-  console.log(movie);
-
   return (
     <Card>
       <Card.Img variant='top' src={movie?.backdrop_path} />

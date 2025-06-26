@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MovieCard from './components/MovieCard';
+import CommentForm from './components/CommentForm';
+import CommentDisplayZone from './components/CommentsDisplayZone';
 
 function App() {
   const [data, setData] = useState(null);
@@ -13,7 +15,7 @@ function App() {
   useEffect(() => {
     const getMovieData = async () => {
       try {
-        const rep = await fetch('https://jsonfakery.com/movies/random/1');
+        const rep = await fetch('http://movies.digistos.com/');
         if (!rep.ok) {
           throw new Error(
             `Erreur HTTP: ${rep.statusText ? rep.statusText + ' - ' : ''}${
@@ -42,9 +44,11 @@ function App() {
   return (
     <>
       <Container>
-        <Row className='d-flex justify-content-center'>
+        <Row className='d-flex justify-content-center my-3'>
           <Col md={6}>
             <MovieCard movie={data} />
+            <CommentForm />
+            <CommentDisplayZone />
           </Col>
         </Row>
       </Container>
