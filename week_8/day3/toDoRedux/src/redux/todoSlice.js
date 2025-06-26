@@ -7,17 +7,15 @@ const todoSlice = createSlice({
   initialState,
   reducers: {
     addTodo: (state, action) => {
-      return [
-        ...state,
-        { id: Date.now(), text: action.payload, completed: false },
-      ];
+      state.push({ id: Date.now(), text: action.payload, completed: false });
+      return state;
     },
     toggleTodo: (state, action) => {
-      return state.map((todo) =>
-        todo.id === action.payload
-          ? { ...todo, completed: !todo.completed }
-          : todo
-      );
+      const todo = state.find((todo) => todo.id === action.payload);
+      if (todo) {
+        todo.completed = !todo.completed;
+      }
+      return state;
     },
   },
 });
