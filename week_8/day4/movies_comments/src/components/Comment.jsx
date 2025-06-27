@@ -9,7 +9,7 @@ export default function Comment({ comment }) {
 
   return (
     <ListGroup.Item>
-      <h7 className='fw-bold mb-1'>Note : {comment.note}/5</h7>
+      <h6 className='fw-bold mb-1'>Note : {comment.note}/5</h6>
       <p>{comment.comment}</p>
       <div className='d-flex justify-content-end'>
         <Button variant='danger' onClick={() => handleDelete(comment.id)}>

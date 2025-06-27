@@ -19,7 +19,7 @@ export default function CommentForm() {
     note: yup
       .number()
       .typeError('Veuillez sélectionner une note')
-      .min(0, 'La note doit être au moins 0')
+      .min(1, 'La note doit être au moins 1')
       .max(5, 'La note doit être au plus 5')
       .required('Veuillez sélectionner une note'),
     cgu: yup
@@ -84,10 +84,9 @@ export default function CommentForm() {
           label="J'accepte les conditions générales"
           {...register('cgu')}
           isInvalid={!!errors.cgu}
+          feedback={errors.cgu?.message}
+          feedbackType='invalid'
         />
-        {errors.cgu && (
-          <Form.Text className='text-danger'>{errors.cgu.message}</Form.Text>
-        )}
       </Form.Group>
 
       <Button variant='primary' type='submit'>
