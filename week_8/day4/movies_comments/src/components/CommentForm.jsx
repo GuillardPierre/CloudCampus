@@ -57,27 +57,25 @@ export default function CommentForm() {
           rows={3}
           {...register('comment')}
           isInvalid={!!errors.comment}
-          feedback={errors.comment?.message}
-          feedbackType='invalid'
         />
+        <Form.Control.Feedback type='invalid'>
+          {errors.comment?.message}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className='mb-3' controlId='note'>
         <Form.Label>Note</Form.Label>
-        <Form.Select
-          {...register('note')}
-          isInvalid={!!errors.note}
-          feedback={errors.note?.message}
-          feedbackType='invalid'
-        >
+        <Form.Select {...register('note')} isInvalid={!!errors.note}>
           <option value=''>Sélectionnez une note</option>
-          <option value='0'>0</option>
-          <option value='1'>1</option>
-          <option value='2'>2</option>
-          <option value='3'>3</option>
-          <option value='4'>4</option>
-          <option value='5'>5</option>
+          {[...Array(5)].map((_, i) => (
+            <option key={i + 1} value={i + 1}>
+              {i + 1}
+            </option>
+          ))}
         </Form.Select>
+        <Form.Control.Feedback type='invalid'>
+          {errors.note?.message}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group className='mb-3' controlId='cgu'>
@@ -86,9 +84,10 @@ export default function CommentForm() {
           label="J'accepte les conditions générales"
           {...register('cgu')}
           isInvalid={!!errors.cgu}
-          feedback={errors.cgu?.message}
-          feedbackType='invalid'
         />
+        {errors.cgu && (
+          <Form.Text className='text-danger'>{errors.cgu.message}</Form.Text>
+        )}
       </Form.Group>
 
       <Button variant='primary' type='submit'>
